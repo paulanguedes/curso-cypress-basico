@@ -105,5 +105,34 @@ describe('Central de Atendimento ao Cliente TAT', function() {
       .select(1)
       .should('have.value', 'blog')
   });
+
+  it('should check the type Feedback in the type of attendance field', () => {
+    cy.get('input[type="radio"]')
+      .check('feedback')
+      .should('have.value', 'feedback')
+  });
+
+  it.only('should check every type of attendance in this field', () => {
+    /* MINHA RESOLUÇÃO DO EXERCÍCIO
+    cy.get('input[type="radio"]')
+      .check('elogio')
+      .should('be.checked')
+    
+    cy.get('input[type="radio"]')
+      .check('feedback')
+      .should('be.checked')
+    
+    cy.get('input[type="radio"]')
+      .check('ajuda')
+      .should('be.checked')
+      */
+
+      cy.get('input[type="radio"]')
+        .should('have.length', 3)
+        .each(($radioButton) => {
+          cy.wrap($radioButton).check()
+          cy.wrap($radioButton).should('be.checked')
+        })
+  });
   
 })
