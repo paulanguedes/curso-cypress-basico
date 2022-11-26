@@ -112,7 +112,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
       .should('have.value', 'feedback')
   });
 
-  it.only('should check every type of attendance in this field', () => {
+  it('should check every type of attendance in this field', () => {
     /* MINHA RESOLUÇÃO DO EXERCÍCIO
     cy.get('input[type="radio"]')
       .check('elogio')
@@ -133,6 +133,16 @@ describe('Central de Atendimento ao Cliente TAT', function() {
           cy.wrap($radioButton).check()
           cy.wrap($radioButton).should('be.checked')
         })
+  });
+
+  it.only('should mark both checkboxes and then unmark the second one', () => {
+    cy.get('input[type="checkbox"]')
+    .should('have.length', 2)
+    .check()
+    .should('be.checked')
+    .last()
+    .uncheck()
+    .should('not.be.checked')
   });
   
 })
