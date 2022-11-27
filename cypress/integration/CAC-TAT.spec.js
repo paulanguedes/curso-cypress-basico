@@ -6,6 +6,13 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.visit('../../src/index.html')
   })
 
+  it.only('should find cat', () => {
+    cy.get('#cat')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+  });
+
   it('should verify application title', () => {
     cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
   })
