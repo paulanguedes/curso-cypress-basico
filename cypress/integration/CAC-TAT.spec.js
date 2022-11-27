@@ -165,7 +165,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
       })
   });
 
-  it.only('should select a file using an alias of a fixture', () => {
+  it('should select a file using an alias of a fixture', () => {
     cy.fixture('example.json').as('alias')
     cy.get('#file-upload')
       .selectFile('@alias')
@@ -173,5 +173,19 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         expect($input[0].files[0].name).to.equal('example.json')
       })
   });
+
+  it('should verify the link without the necessity of a click', () => {
+    cy.get('#privacy a').should('have.attr', 'target', '_blank')
+  });
+
+  it('should access the link removing the target attribute', () => {
+    cy.get('#privacy a')
+      .invoke('removeAttr', 'target')
+      .click()
+
+    cy.contains('CAC TAT - Política de privacidade').should('be.visible')
+  });
+
+  
   
 })
