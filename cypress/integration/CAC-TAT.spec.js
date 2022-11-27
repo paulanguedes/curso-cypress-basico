@@ -24,18 +24,20 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('.success').should('not.be.visible')
   })
 
-  it('should show error message when submit invalid email', () => {
-    cy.clock()
-    
-    cy.get('#firstName').type('Paula')
-    cy.get('#lastName').type('Guedes')
-    cy.get('#email').type('paula@gmail,com')
-    cy.get('#open-text-area').type('Amei esse hands on. Parabéns!')
-    cy.contains('.button', 'Enviar').click()
-
-    cy.get('.error').should('be.visible')
-    cy.tick(3000)
-    cy.get('.error').should('not.be.visible')
+  Cypress._.times(5, () => {
+    it.only('should show error message when submit invalid email', () => {
+      cy.clock()
+      
+      cy.get('#firstName').type('Paula')
+      cy.get('#lastName').type('Guedes')
+      cy.get('#email').type('paula@gmail,com')
+      cy.get('#open-text-area').type('Amei esse hands on. Parabéns!')
+      cy.contains('.button', 'Enviar').click()
+  
+      cy.get('.error').should('be.visible')
+      cy.tick(3000)
+      cy.get('.error').should('not.be.visible')
+    })
   })
 
   it('should only fill out the phone field with numbers', () => {
