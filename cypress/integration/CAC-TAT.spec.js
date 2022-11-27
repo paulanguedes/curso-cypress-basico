@@ -135,7 +135,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         })
   });
 
-  it.only('should mark both checkboxes and then unmark the second one', () => {
+  it('should mark both checkboxes and then unmark the second one', () => {
     cy.get('input[type="checkbox"]')
     .should('have.length', 2)
     .check()
@@ -143,6 +143,35 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     .last()
     .uncheck()
     .should('not.be.checked')
+  });
+
+  it('should select a file from fixture folder', () => {
+    cy.get('#file-upload')
+      .should('not.have.value')
+      .selectFile('cypress/fixtures/example.json')
+      .should('have.length', 1)
+      .should(($input) => {
+        expect($input[0].files[0].name).to.equal('example.json')
+      })
+  });
+
+  it('should upload a file with drag and drop', () => {
+    cy.get('#file-upload')
+      .should('not.have.value')
+      .selectFile('cypress/fixtures/example.json', {action: 'drag-drop'})
+      .should('have.length', 1)
+      .should(($input) => {
+        expect($input[0].files[0].name).to.equal('example.json')
+      })
+  });
+
+  it.only('should select a file using an alias of a fixture', () => {
+    cy.fixture('example.json').as('alias')
+    cy.get('#file-upload')
+      .selectFile('@alias')
+      .should(($input) => {
+        expect($input[0].files[0].name).to.equal('example.json')
+      })
   });
   
 })
