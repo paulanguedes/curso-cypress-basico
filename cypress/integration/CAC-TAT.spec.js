@@ -25,7 +25,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
   })
 
   Cypress._.times(5, () => {
-    it.only('should show error message when submit invalid email', () => {
+    it('should show error message when submit invalid email', () => {
       cy.clock()
       
       cy.get('#firstName').type('Paula')
@@ -209,5 +209,22 @@ describe('Central de Atendimento ao Cliente TAT', function() {
       .click()
 
     cy.contains('CAC TAT - Política de privacidade').should('be.visible')
+  });
+
+  it.only('should show and hide the error and success messages', () => {
+    cy.get('.success')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+      .and('contain', 'Mensagem enviada com sucesso.')
+      .invoke('hide')
+      .should('not.be.visible')
+    cy.get('.error')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+      .and('contain', 'Valide os campos obrigatórios!')
+      .invoke('hide')
+      .should('not.be.visible')
   });
 })
