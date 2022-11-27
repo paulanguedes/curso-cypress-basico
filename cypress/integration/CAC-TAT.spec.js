@@ -11,6 +11,8 @@ describe('Central de Atendimento ao Cliente TAT', function() {
   })
 
   it('should fill out the mandatory fields and submit the form', () => {
+    cy.clock()
+
     cy.get('#firstName').type('Paula')
     cy.get('#lastName').type('Guedes')
     cy.get('#email').type('paula@gmail.com')
@@ -18,9 +20,13 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.contains('.button', 'Enviar').click()
 
     cy.get('.success').should('be.visible')
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
   })
 
   it('should show error message when submit invalid email', () => {
+    cy.clock()
+    
     cy.get('#firstName').type('Paula')
     cy.get('#lastName').type('Guedes')
     cy.get('#email').type('paula@gmail,com')
@@ -28,6 +34,8 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.contains('.button', 'Enviar').click()
 
     cy.get('.error').should('be.visible')
+    cy.tick(3000)
+    cy.get('.error').should('not.be.visible')
   })
 
   it('should only fill out the phone field with numbers', () => {
@@ -41,6 +49,8 @@ describe('Central de Atendimento ao Cliente TAT', function() {
   })
 
   it('should show error message if phone is required but not filled on submit', () => {
+    cy.clock()
+
     cy.get('#phone-checkbox').check()
     cy.get('.phone-label-span').should('be.visible')
     
@@ -49,7 +59,10 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('#email').type('paula@gmail.com')
     cy.get('#open-text-area').type('Amei esse hands on. Parabéns!')
     cy.contains('.button', 'Enviar').click()
+    
     cy.get('.error').should('be.visible')
+    cy.tick(3000)
+    cy.get('.error').should('not.be.visible')
   })
 
   it('fills out and clears the fiels name, lasta name, email and phone', () => {
@@ -79,13 +92,23 @@ describe('Central de Atendimento ao Cliente TAT', function() {
   })
 
   it('should show error message if required fields are not filled out', () => {
+    cy.clock()
+    
     cy.contains('.button', 'Enviar').click()
+    
     cy.get('.error').should('be.visible')
+    cy.tick(3000)
+    cy.get('.error').should('not.be.visible')
   });
 
   it('should send out form with custom commands', () => {
+    cy.clock()
+
     cy.fillMandatoryFieldsAndSubmit()
+    
     cy.get('.success').should('be.visible')
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
   });
 
   it('should select product Youtube by text', () => {
